@@ -2,10 +2,10 @@
 # This configuration supports both A2B and A3B variants
 
 model:
-  # Model identifier - change this to the specific variant you want to deploy
+  # Model identifier - using local downloaded model
   # Available options: "Qwen/Qwen3-30B-A3B" (publicly available)
   # If A2B becomes available, change to: "Qwen/Qwen3-30B-A2B"
-  name: "Qwen/Qwen3-30B-A3B"
+  name: "./models/models--Qwen--Qwen3-30B-A3B/snapshots/ae659febe817e4b3ebd7355f47792725801204c9"
   
   # Model type and architecture
   model_type: "qwen3"
@@ -41,7 +41,7 @@ model:
 server:
   # API server configuration
   host: "0.0.0.0"
-  port: 8000
+  port: 8888
   
   # Request handling
   max_parallel_loading_workers: 2

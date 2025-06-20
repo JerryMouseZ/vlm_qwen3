@@ -298,11 +298,12 @@ def main():
     # Create deployer instance
     deployer = Qwen3Deployer(args.config)
     
-    # Update model name based on variant
-    if args.model_variant == "A2B":
-        deployer.config['model']['name'] = "Qwen/Qwen3-30B-A2B"
-    else:
-        deployer.config['model']['name'] = "Qwen/Qwen3-30B-A3B"
+    # Update model name based on variant (only if using remote model)
+    if not deployer.config['model']['name'].startswith('./'):
+        if args.model_variant == "A2B":
+            deployer.config['model']['name'] = "Qwen/Qwen3-30B-A2B"
+        else:
+            deployer.config['model']['name'] = "Qwen/Qwen3-30B-A3B"
     
     # Setup signal handlers
     signal_handler.deployer = deployer
