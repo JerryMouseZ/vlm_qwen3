@@ -1,0 +1,101 @@
+# vLLM Configuration for Qwen3-30B Model Deployment
+# This configuration supports both A2B and A3B variants
+
+model:
+  # Model identifier - change this to the specific variant you want to deploy
+  # Available options: "Qwen/Qwen3-30B-A3B" (publicly available)
+  # If A2B becomes available, change to: "Qwen/Qwen3-30B-A2B"
+  name: "Qwen/Qwen3-30B-A3B"
+  
+  # Model type and architecture
+  model_type: "qwen3"
+  trust_remote_code: true
+  
+  # Quantization settings (A2B/A3B refers to quantization levels)
+  quantization: null  # Set to "awq", "gptq", or "fp8" if using quantized models
+  
+  # Context length (reduced for memory efficiency)
+  max_model_len: 16384  # Reduced from 32K to save memory
+  
+  # GPU and memory configuration (optimized for MoE model)
+  gpu_memory_utilization: 0.7   # Reduced for MoE model memory requirements
+  tensor_parallel_size: 8       # Use all 8 GPUs for better memory distribution
+  pipeline_parallel_size: 1     # Keep pipeline parallelism at 1 for simplicity
+  
+  # Performance optimizations
+  enable_chunked_prefill: true
+  max_num_batched_tokens: 8192
+  max_num_seqs: 256
+  
+  # Memory optimizations
+  swap_space: 4  # 4GB swap space
+  cpu_offload_gb: 0  # No CPU offloading by default
+  
+  # KV cache configuration
+  kv_cache_dtype: "auto"  # Use same dtype as model
+  block_size: 16
+  
+  # Attention optimizations (removed unsupported option)
+  # attention_backend: "FLASHINFER"  # Not supported in this vLLM version
+  
+server:
+  # API server configuration
+  host: "0.0.0.0"
+  port: 8000
+  
+  # Request handling
+  max_parallel_loading_workers: 2
+  disable_log_requests: false
+  
+  # API compatibility
+  served_model_name: "qwen3-30b"  # Custom name for API calls
+  
+  # Safety and limits
+  max_log_len: 2048
+  
+inference:
+  # Default inference parameters
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 50
+  max_tokens: 2048
+  repetition_penalty: 1.1
+  
+  # Sampling parameters
+  seed: null  # Random seed, set to integer for reproducible results
+  stop_tokens: ["<|endoftext|>", "<|im_end|>"]
+  
+  # Special tokens for Qwen3
+  chat_template: null  # Use model's default chat template
+  
+logging:
+  # Logging configuration
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # Log files
+  log_file: "logs/vllm_server.log"
+  access_log_file: "logs/vllm_access.log"
+  
+  # Metrics and monitoring (removed unsupported options)
+  # enable_metrics: true  # Not supported in this vLLM version
+  # metrics_port: 8001
+  
+# Hardware-specific optimizations
+hardware:
+  # CUDA settings
+  cuda_visible_devices: "0,1,2,3"  # Use first 4 GPUs
+  
+  # Memory settings
+  pytorch_cuda_alloc_conf: "max_split_size_mb:512"
+  
+  # Performance tuning
+  enable_prefix_caching: true
+  enable_lora: false  # Set to true if using LoRA adapters
+  
+# Environment variables
+environment:
+  VLLM_WORKER_MULTIPROC_METHOD: "spawn"
+  VLLM_LOGGING_LEVEL: "INFO"
+  TOKENIZERS_PARALLELISM: "false"
+  HF_HUB_ENABLE_HF_TRANSFER: "1"

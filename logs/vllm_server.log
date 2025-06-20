@@ -1,0 +1,181 @@
+2025-06-20 20:02:20,931 - __main__ - INFO - Starting Qwen3-30B deployment...
+2025-06-20 20:02:20,931 - __main__ - INFO - Checking system requirements...
+2025-06-20 20:02:21,013 - __main__ - INFO - Found 8 GPUs, using 4 for deployment
+2025-06-20 20:02:21,013 - __main__ - INFO - System requirements check passed!
+2025-06-20 20:02:21,013 - __main__ - INFO - Environment variables configured
+2025-06-20 20:02:21,013 - __main__ - INFO - Starting vLLM server...
+2025-06-20 20:02:21,014 - __main__ - INFO - Command: python -m vllm.entrypoints.openai.api_server --model Qwen/Qwen3-30B-A3B --host 0.0.0.0 --port 8000 --tensor-parallel-size 4 --pipeline-parallel-size 1 --gpu-memory-utilization 0.85 --max-model-len 32768 --max-num-batched-tokens 8192 --max-num-seqs 256 --swap-space 4 --block-size 16 --served-model-name qwen3-30b --trust-remote-code --enable-chunked-prefill --attention-backend FLASHINFER --enable-metrics --metrics-port 8001
+2025-06-20 20:02:21,015 - __main__ - INFO - vLLM server started with PID: 1499023
+2025-06-20 20:02:21,016 - __main__ - INFO - Waiting for server to be ready...
+INFO 06-20 20:02:25 [__init__.py:244] Automatically detected platform cuda.
+usage: api_server.py [-h] [--host HOST] [--port PORT]
+                     [--uvicorn-log-level {debug,info,warning,error,critical,trace}]
+                     [--disable-uvicorn-access-log] [--allow-credentials]
+                     [--allowed-origins ALLOWED_ORIGINS]
+                     [--allowed-methods ALLOWED_METHODS]
+                     [--allowed-headers ALLOWED_HEADERS] [--api-key API_KEY]
+                     [--lora-modules LORA_MODULES [LORA_MODULES ...]]
+                     [--prompt-adapters PROMPT_ADAPTERS [PROMPT_ADAPTERS ...]]
+                     [--chat-template CHAT_TEMPLATE]
+                     [--chat-template-content-format {auto,string,openai}]
+                     [--response-role RESPONSE_ROLE]
+                     [--ssl-keyfile SSL_KEYFILE] [--ssl-certfile SSL_CERTFILE]
+                     [--ssl-ca-certs SSL_CA_CERTS] [--enable-ssl-refresh]
+                     [--ssl-cert-reqs SSL_CERT_REQS] [--root-path ROOT_PATH]
+                     [--middleware MIDDLEWARE] [--return-tokens-as-token-ids]
+                     [--disable-frontend-multiprocessing]
+                     [--enable-request-id-headers] [--enable-auto-tool-choice]
+                     [--tool-call-parser {deepseek_v3,granite-20b-fc,granite,hermes,internlm,jamba,llama4_pythonic,llama4_json,llama3_json,mistral,phi4_mini_json,pythonic} or name registered in --tool-parser-plugin]
+                     [--tool-parser-plugin TOOL_PARSER_PLUGIN]
+                     [--log-config-file LOG_CONFIG_FILE] [--model MODEL]
+                     [--task {auto,classify,draft,embed,embedding,generate,reward,score,transcription}]
+                     [--tokenizer TOKENIZER]
+                     [--tokenizer-mode {auto,custom,mistral,slow}]
+                     [--trust-remote-code | --no-trust-remote-code]
+                     [--dtype {auto,bfloat16,float,float16,float32,half}]
+                     [--seed SEED] [--hf-config-path HF_CONFIG_PATH]
+                     [--allowed-local-media-path ALLOWED_LOCAL_MEDIA_PATH]
+                     [--revision REVISION] [--code-revision CODE_REVISION]
+                     [--rope-scaling ROPE_SCALING] [--rope-theta ROPE_THETA]
+                     [--tokenizer-revision TOKENIZER_REVISION]
+                     [--max-model-len MAX_MODEL_LEN]
+                     [--quantization {aqlm,auto-round,awq,awq_marlin,bitblas,bitsandbytes,compressed-tensors,deepspeedfp,experts_int8,fbgemm_fp8,fp8,gguf,gptq,gptq_bitblas,gptq_marlin,gptq_marlin_24,hqq,ipex,marlin,modelopt,modelopt_fp4,moe_wna16,neuron_quant,ptpc_fp8,qqq,quark,torchao,tpu_int8,None}]
+                     [--enforce-eager | --no-enforce-eager]
+                     [--max-seq-len-to-capture MAX_SEQ_LEN_TO_CAPTURE]
+                     [--max-logprobs MAX_LOGPROBS]
+                     [--disable-sliding-window | --no-disable-sliding-window]
+                     [--disable-cascade-attn | --no-disable-cascade-attn]
+                     [--skip-tokenizer-init | --no-skip-tokenizer-init]
+                     [--enable-prompt-embeds | --no-enable-prompt-embeds]
+                     [--served-model-name SERVED_MODEL_NAME [SERVED_MODEL_NAME ...]]
+                     [--disable-async-output-proc]
+                     [--config-format {auto,hf,mistral}]
+                     [--hf-token [HF_TOKEN]] [--hf-overrides HF_OVERRIDES]
+                     [--override-neuron-config OVERRIDE_NEURON_CONFIG]
+                     [--override-pooler-config OVERRIDE_POOLER_CONFIG]
+                     [--logits-processor-pattern LOGITS_PROCESSOR_PATTERN]
+                     [--generation-config GENERATION_CONFIG]
+                     [--override-generation-config OVERRIDE_GENERATION_CONFIG]
+                     [--enable-sleep-mode | --no-enable-sleep-mode]
+                     [--model-impl {auto,vllm,transformers}]
+                     [--load-format {auto,pt,safetensors,npcache,dummy,tensorizer,sharded_state,gguf,bitsandbytes,mistral,runai_streamer,runai_streamer_sharded,fastsafetensors}]
+                     [--download-dir DOWNLOAD_DIR]
+                     [--model-loader-extra-config MODEL_LOADER_EXTRA_CONFIG]
+                     [--ignore-patterns IGNORE_PATTERNS [IGNORE_PATTERNS ...]]
+                     [--use-tqdm-on-load | --no-use-tqdm-on-load]
+                     [--qlora-adapter-name-or-path QLORA_ADAPTER_NAME_OR_PATH]
+                     [--pt-load-map-location PT_LOAD_MAP_LOCATION]
+                     [--guided-decoding-backend {auto,guidance,lm-format-enforcer,outlines,xgrammar}]
+                     [--guided-decoding-disable-fallback | --no-guided-decoding-disable-fallback]
+                     [--guided-decoding-disable-any-whitespace | --no-guided-decoding-disable-any-whitespace]
+                     [--guided-decoding-disable-additional-properties | --no-guided-decoding-disable-additional-properties]
+                     [--enable-reasoning | --no-enable-reasoning]
+                     [--reasoning-parser {deepseek_r1,granite,qwen3}]
+                     [--distributed-executor-backend {external_launcher,mp,ray,uni,None}]
+                     [--pipeline-parallel-size PIPELINE_PARALLEL_SIZE]
+                     [--tensor-parallel-size TENSOR_PARALLEL_SIZE]
+                     [--data-parallel-size DATA_PARALLEL_SIZE]
+                     [--data-parallel-size-local DATA_PARALLEL_SIZE_LOCAL]
+                     [--data-parallel-address DATA_PARALLEL_ADDRESS]
+                     [--data-parallel-rpc-port DATA_PARALLEL_RPC_PORT]
+                     [--data-parallel-backend DATA_PARALLEL_BACKEND]
+                     [--enable-expert-parallel | --no-enable-expert-parallel]
+                     [--max-parallel-loading-workers MAX_PARALLEL_LOADING_WORKERS]
+                     [--ray-workers-use-nsight | --no-ray-workers-use-nsight]
+                     [--disable-custom-all-reduce | --no-disable-custom-all-reduce]
+                     [--worker-cls WORKER_CLS]
+                     [--worker-extension-cls WORKER_EXTENSION_CLS]
+                     [--enable-multimodal-encoder-data-parallel | --no-enable-multimodal-encoder-data-parallel]
+                     [--block-size {1,8,16,32,64,128}]
+                     [--gpu-memory-utilization GPU_MEMORY_UTILIZATION]
+                     [--swap-space SWAP_SPACE]
+                     [--kv-cache-dtype {auto,fp8,fp8_e4m3,fp8_e5m2}]
+                     [--num-gpu-blocks-override NUM_GPU_BLOCKS_OVERRIDE]
+                     [--enable-prefix-caching | --no-enable-prefix-caching]
+                     [--prefix-caching-hash-algo {builtin,sha256}]
+                     [--cpu-offload-gb CPU_OFFLOAD_GB]
+                     [--calculate-kv-scales | --no-calculate-kv-scales]
+                     [--tokenizer-pool-size TOKENIZER_POOL_SIZE]
+                     [--tokenizer-pool-type TOKENIZER_POOL_TYPE]
+                     [--tokenizer-pool-extra-config TOKENIZER_POOL_EXTRA_CONFIG]
+                     [--limit-mm-per-prompt LIMIT_MM_PER_PROMPT]
+                     [--mm-processor-kwargs MM_PROCESSOR_KWARGS]
+                     [--disable-mm-preprocessor-cache | --no-disable-mm-preprocessor-cache]
+                     [--enable-lora | --no-enable-lora]
+                     [--enable-lora-bias | --no-enable-lora-bias]
+                     [--max-loras MAX_LORAS] [--max-lora-rank MAX_LORA_RANK]
+                     [--lora-extra-vocab-size LORA_EXTRA_VOCAB_SIZE]
+                     [--lora-dtype {auto,bfloat16,float16}]
+                     [--long-lora-scaling-factors LONG_LORA_SCALING_FACTORS [LONG_LORA_SCALING_FACTORS ...]]
+                     [--max-cpu-loras MAX_CPU_LORAS]
+                     [--fully-sharded-loras | --no-fully-sharded-loras]
+                     [--enable-prompt-adapter | --no-enable-prompt-adapter]
+                     [--max-prompt-adapters MAX_PROMPT_ADAPTERS]
+                     [--max-prompt-adapter-token MAX_PROMPT_ADAPTER_TOKEN]
+                     [--device {auto,cpu,cuda,hpu,neuron,tpu,xpu}]
+                     [--speculative-config SPECULATIVE_CONFIG]
+                     [--show-hidden-metrics-for-version SHOW_HIDDEN_METRICS_FOR_VERSION]
+                     [--otlp-traces-endpoint OTLP_TRACES_ENDPOINT]
+                     [--collect-detailed-traces {all,model,worker,None} [{all,model,worker,None} ...]]
+                     [--max-num-batched-tokens MAX_NUM_BATCHED_TOKENS]
+                     [--max-num-seqs MAX_NUM_SEQS]
+                     [--max-num-partial-prefills MAX_NUM_PARTIAL_PREFILLS]
+                     [--max-long-partial-prefills MAX_LONG_PARTIAL_PREFILLS]
+                     [--cuda-graph-sizes CUDA_GRAPH_SIZES [CUDA_GRAPH_SIZES ...]]
+                     [--long-prefill-token-threshold LONG_PREFILL_TOKEN_THRESHOLD]
+                     [--num-lookahead-slots NUM_LOOKAHEAD_SLOTS]
+                     [--scheduler-delay-factor SCHEDULER_DELAY_FACTOR]
+                     [--preemption-mode {recompute,swap,None}]
+                     [--num-scheduler-steps NUM_SCHEDULER_STEPS]
+                     [--multi-step-stream-outputs | --no-multi-step-stream-outputs]
+                     [--scheduling-policy {fcfs,priority}]
+                     [--enable-chunked-prefill | --no-enable-chunked-prefill]
+                     [--disable-chunked-mm-input | --no-disable-chunked-mm-input]
+                     [--scheduler-cls SCHEDULER_CLS]
+                     [--disable-hybrid-kv-cache-manager | --no-disable-hybrid-kv-cache-manager]
+                     [--kv-transfer-config KV_TRANSFER_CONFIG]
+                     [--kv-events-config KV_EVENTS_CONFIG]
+                     [--compilation-config COMPILATION_CONFIG]
+                     [--additional-config ADDITIONAL_CONFIG]
+                     [--use-v2-block-manager] [--disable-log-stats]
+                     [--disable-log-requests] [--max-log-len MAX_LOG_LEN]
+                     [--disable-fastapi-docs] [--enable-prompt-tokens-details]
+                     [--enable-server-load-tracking]
+api_server.py: error: unrecognized arguments: --attention-backend FLASHINFER --enable-metrics --metrics-port 8001
+2025-06-20 20:02:32,812 - __main__ - ERROR - vLLM process terminated unexpectedly
+2025-06-20 20:02:32,813 - __main__ - INFO - Stopping vLLM server...
+2025-06-20 20:02:32,813 - __main__ - INFO - vLLM server stopped
+2025-06-20 20:03:33,581 - __main__ - INFO - Starting Qwen3-30B deployment...
+2025-06-20 20:03:33,581 - __main__ - INFO - Checking system requirements...
+2025-06-20 20:03:33,663 - __main__ - INFO - Found 8 GPUs, using 4 for deployment
+2025-06-20 20:03:33,663 - __main__ - INFO - System requirements check passed!
+2025-06-20 20:03:33,663 - __main__ - INFO - Environment variables configured
+2025-06-20 20:03:33,664 - __main__ - INFO - Starting vLLM server...
+2025-06-20 20:03:33,664 - __main__ - INFO - Command: python -m vllm.entrypoints.openai.api_server --model Qwen/Qwen3-30B-A3B --host 0.0.0.0 --port 8000 --tensor-parallel-size 4 --pipeline-parallel-size 1 --gpu-memory-utilization 0.85 --max-model-len 32768 --max-num-batched-tokens 8192 --max-num-seqs 256 --swap-space 4 --block-size 16 --served-model-name qwen3-30b --trust-remote-code --enable-chunked-prefill
+2025-06-20 20:03:33,666 - __main__ - INFO - vLLM server started with PID: 1504042
+2025-06-20 20:03:33,666 - __main__ - INFO - Waiting for server to be ready...
+INFO 06-20 20:03:37 [__init__.py:244] Automatically detected platform cuda.
+INFO 06-20 20:03:41 [api_server.py:1287] vLLM API server version 0.9.1
+INFO 06-20 20:03:42 [cli_args.py:309] non-default args: {'host': '0.0.0.0', 'model': 'Qwen/Qwen3-30B-A3B', 'trust_remote_code': True, 'max_model_len': 32768, 'served_model_name': ['qwen3-30b'], 'tensor_parallel_size': 4, 'block_size': 16, 'gpu_memory_utilization': 0.85, 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'enable_chunked_prefill': True}
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/jz/.local/lib/python3.10/site-packages/vllm/entrypoints/openai/api_server.py", line 1387, in <module>
+    uvloop.run(run_server(args))
+  File "/home/jz/.local/lib/python3.10/site-packages/uvloop/__init__.py", line 82, in run
+    return loop.run_until_complete(wrapper())
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/home/jz/.local/lib/python3.10/site-packages/uvloop/__init__.py", line 61, in wrapper
+    return await main
+  File "/home/jz/.local/lib/python3.10/site-packages/vllm/entrypoints/openai/api_server.py", line 1322, in run_server
+    listen_address, sock = setup_server(args)
+  File "/home/jz/.local/lib/python3.10/site-packages/vllm/entrypoints/openai/api_server.py", line 1299, in setup_server
+    sock = create_server_socket(sock_addr)
+  File "/home/jz/.local/lib/python3.10/site-packages/vllm/entrypoints/openai/api_server.py", line 1263, in create_server_socket
+    sock.bind(addr)
+OSError: [Errno 98] Address already in use
+2025-06-20 20:03:45,362 - __main__ - ERROR - vLLM process terminated unexpectedly
+2025-06-20 20:03:45,362 - __main__ - INFO - Stopping vLLM server...
+2025-06-20 20:03:45,362 - __main__ - INFO - vLLM server stopped
